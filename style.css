@@ -96,7 +96,7 @@ body {
 /* CIELO: sobredimensionado + transform para drift suave estilo retro */
 .sky {
     z-index: 0;
-    background-image: url('img/back-2.png');
+    background-image: url('img/back-2.webp');
     background-size: cover;
     background-position: center;
     /* Sobredimensionar: más ancho que la pantalla para tener margen de movimiento */
@@ -116,7 +116,7 @@ body {
 /* MAR: sobredimensionado + transform para drift suave como olas */
 .back {
     z-index: 1;
-    background-image: url('img/back.png');
+    background-image: url('img/back.webp');
     background-size: cover;
     background-position: center;
     width: 140%;
@@ -137,7 +137,7 @@ body {
 /* FRENTE: estático, siempre cubriendo todo */
 .front {
     z-index: 2;
-    background-image: url('img/front.png');
+    background-image: url('img/front.webp');
     background-position: center bottom;
     image-rendering: pixelated;
 }

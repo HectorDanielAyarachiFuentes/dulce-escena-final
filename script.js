@@ -1,9 +1,9 @@
 // ====== PRECARGA DE IMÁGENES ======
 const imagesToLoad = [
-    'img/back-2.png',
-    'img/back.png',
-    'img/front.png',
-    'img/dibujando.png'
+    'img/back-2.webp',
+    'img/back.webp',
+    'img/front.webp',
+    'img/dibujando.webp'
 ];
 
 const preloader = document.getElementById('preloader');
