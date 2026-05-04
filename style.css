@@ -33,7 +33,16 @@ body {
 
 .sky {
     z-index: 0;
-    transform: scale(1.05);
+    animation: moveSky 25s ease-in-out infinite alternate;
+}
+
+@keyframes moveSky {
+    0% {
+        transform: scale(1.05) translate(8px, 0);
+    }
+    100% {
+        transform: scale(1.05) translate(-12px, -3px);
+    }
 }
 
 .back {
