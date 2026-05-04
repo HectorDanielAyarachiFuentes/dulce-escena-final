@@ -124,11 +124,7 @@ body {
     inset: 0;
     z-index: 11;
     pointer-events: none;
-    background: 
-        radial-gradient(circle, transparent 60%, rgba(0,0,0,0.2) 100%),
-        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%),
-        linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.01));
-    background-size: 100% 100%, 100% 4px, 100% 100%;
+    background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.3) 100%);
 }
 
 /* FILTRO DE PIXELADO GLOBAL */
@@ -136,17 +132,7 @@ body {
     /* Quitamos el filtro de aquí para que no afecte al perro */
 }
 
-/* REJILLA DE PÍXELES (SIMULA PIXELADO SIN BORROSIZAR) */
-.pixel-grid {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    background-image: 
-        linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
-    background-size: 3px 3px;
-}
+
 
 .layer {
     /* Eliminamos el filtro problemático */
