@@ -93,16 +93,16 @@ body {
     image-rendering: crisp-edges;
 }
 
-/* CIELO: sobredimensionado + transform para drift suave estilo retro */
+/* CIELO: Pantalla completa con balanceo vertical */
 .sky {
     z-index: 0;
     background-image: url('img/back-1-cielo.webp');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
-    width: 120%;
-    height: 120%;
-    top: -10%;
-    left: -10%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     will-change: translate, scale, filter;
     animation: driftSky 120s ease-in-out infinite;
     image-rendering: pixelated;
@@ -113,23 +113,20 @@ body {
 }
 
 @keyframes driftSky {
-    0%   { translate: 0% 0%; }
-    25%  { translate: 1% 0.5%; }
-    50%  { translate: 2% 0%; }
-    75%  { translate: 1% -0.5%; }
-    100% { translate: 0% 0%; }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(1%); }
 }
 
-/* NUBES: Capa intermedia con movimiento independiente */
+/* NUBES: Pantalla completa con balanceo vertical */
 .clouds {
     z-index: 1;
     background-image: url('img/back-2-nubes.webp');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
-    width: 140%;
-    height: 110%;
-    top: -5%;
-    left: -20%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     will-change: translate, scale, filter;
     animation: driftClouds 80s ease-in-out infinite;
     image-rendering: pixelated;
@@ -140,40 +137,39 @@ body {
 }
 
 @keyframes driftClouds {
-    0%   { translate: 0% 0%; }
-    25%  { translate: 4% 1%; }
-    50%  { translate: 8% 0%; }
-    75%  { translate: 4% -1%; }
-    100% { translate: 0% 0%; }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1%); }
 }
 
-/* MAR: sobredimensionado + transform para drift suave como olas */
+/* MAR: Pantalla completa con balanceo vertical */
 .back {
     z-index: 2;
     background-image: url('img/back.webp');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
-    width: 140%;
-    left: -20%;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
     will-change: transform;
     animation: driftSea 35s ease-in-out infinite;
     image-rendering: pixelated;
 }
 
 @keyframes driftSea {
-    0%   { transform: translateX(0%) translateY(0px); }
-    25%  { transform: translateX(5%) translateY(2px); }
-    50%  { transform: translateX(10%) translateY(0px); }
-    75%  { transform: translateX(5%) translateY(-2px); }
-    100% { transform: translateX(0%) translateY(0px); }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(2px); }
 }
 
-/* FRENTE: estático, siempre cubriendo todo */
+/* FRENTE: Pantalla completa, estático */
 .front {
     z-index: 3;
     background-image: url('img/front.webp');
+    background-size: 100% 100%;
     background-position: center bottom;
     image-rendering: pixelated;
+    width: 100%;
+    height: 100%;
 }
 
 /* ELEMENTOS DE LA ESCENA: DULCE Y ATRIL */
@@ -292,12 +288,11 @@ body {
         left: 0;
         top: 0;
         background-size: 100% 100%; 
-        /* Usamos animaciones simplificadas para móvil que no desplacen horizontalmente */
-        animation-name: driftSkyMobile;
+        animation-name: driftSky; /* Usamos las nuevas animaciones genéricas */
     }
 
-    .clouds { animation-name: driftCloudsMobile; }
-    .back { animation-name: driftSeaMobile; }
+    .clouds { animation-name: driftClouds; }
+    .back { animation-name: driftSea; }
     
     .front {
         width: 100%;
@@ -309,21 +304,7 @@ body {
     }
 }
 
-/* Animaciones específicas para móvil (solo movimiento vertical suave para evitar huecos laterales) */
-@keyframes driftSkyMobile {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(1%); }
-}
-
-@keyframes driftCloudsMobile {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-1%); }
-}
-
-@keyframes driftSeaMobile {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(2px); }
-}
+/* Las animaciones móviles ya no son necesarias por separado pues se aplicaron a la base */
 
 /* Small Mobile (Max 480px) */
 @media (max-width: 480px) {
