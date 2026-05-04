@@ -20,12 +20,23 @@
     <div class="scene-container" style="opacity: 0;">
         <div class="layer sky"></div>
         <div class="layer back"></div>
-        <img src="img/dibujando.webp" class="perro" alt="Perro dibujando">
+        <img src="img/atril.webp" class="atril" alt="Atril">
+        <img src="img/dulce.webp" class="dulce" alt="Dulce">
         <div class="layer front"></div>
     </div>
 
     <audio id="musica" src="cancion/sad.mpeg" loop preload="auto"></audio>
 
     <script src="script.js"></script>
+
+    <!-- Filtro de viento para Dulce -->
+    <svg style="position: absolute; width: 0; height: 0;">
+        <filter id="windFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.05" numOctaves="2" seed="1">
+                <animate attributeName="baseFrequency" dur="5s" values="0.01 0.05;0.01 0.1;0.01 0.05" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="4" />
+        </filter>
+    </svg>
 </body>
 </html>

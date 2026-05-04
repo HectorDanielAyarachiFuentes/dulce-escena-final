@@ -3,7 +3,8 @@ const imagesToLoad = [
     'img/back-2.webp',
     'img/back.webp',
     'img/front.webp',
-    'img/dibujando.webp'
+    'img/dulce.webp',
+    'img/atril.webp'
 ];
 
 const preloader = document.getElementById('preloader');
@@ -47,3 +48,4 @@ const startMusic = () => {
 
 document.addEventListener('click', startMusic);
 document.addEventListener('touchstart', startMusic);
+

@@ -142,18 +142,38 @@ body {
     image-rendering: pixelated;
 }
 
-/* PERRO: centrado en la playa, encima de todas las capas */
-.perro {
+/* ELEMENTOS DE LA ESCENA: DULCE Y ATRIL */
+.atril, .dulce {
     position: absolute;
     z-index: 3;
-    bottom: -0.9%;
-    left: 40%;
-    transform: translateX(-50%);
-    height: 35%;
     width: auto;
     object-fit: contain;
     pointer-events: none;
     image-rendering: pixelated;
+}
+
+.atril {
+    left: 35.5%; 
+    bottom: -1.2%; 
+    height: 30.0%;
+    transform: translateX(-50%);
+}
+
+.dulce {
+    left: 35.0%; 
+    bottom: -0.1%; 
+    height: 32.9%;
+    transform: translateX(-50%);
+    
+    /* Efecto de viento y respiración */
+    filter: url(#windFilter);
+    animation: breathing 4s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes breathing {
+    0%, 100% { transform: translateX(-50%) scale(1) skewX(0deg); }
+    50% { transform: translateX(-50%) scale(1.02) skewX(1.1deg); }
 }
 
 /* EFECTOS RETRO Y TEXTURA */
