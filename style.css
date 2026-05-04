@@ -245,3 +245,103 @@ body {
 .layer {
     /* Eliminamos el filtro problemático */
 }
+
+/* RESPONSIVE DESIGN */
+
+/* Tablet (Max 1024px) */
+@media (max-width: 1024px) {
+    .atril {
+        left: 40%;
+        height: 25%;
+    }
+    
+    .dulce {
+        left: 39.5%;
+        height: 28%;
+    }
+    
+    .loader-content {
+        width: 80%;
+        max-width: 300px;
+    }
+}
+
+/* Mobile (Max 768px) */
+@media (max-width: 768px) {
+    .atril {
+        left: 50%;
+        height: 25%;
+        bottom: 0; /* Al borde inferior */
+    }
+    
+    .dulce {
+        left: 49.5%;
+        height: 28%;
+        bottom: 0; /* Al borde inferior */
+    }
+
+    .loader-title {
+        font-size: 1rem;
+        letter-spacing: 2px;
+    }
+
+    /* Mostrar todo el paisaje sin recortes */
+    .sky, .clouds, .back {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-size: 100% 100%; 
+        /* Usamos animaciones simplificadas para móvil que no desplacen horizontalmente */
+        animation-name: driftSkyMobile;
+    }
+
+    .clouds { animation-name: driftCloudsMobile; }
+    .back { animation-name: driftSeaMobile; }
+    
+    .front {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        background-size: 100% 100%;
+        background-position: center bottom;
+    }
+}
+
+/* Animaciones específicas para móvil (solo movimiento vertical suave para evitar huecos laterales) */
+@keyframes driftSkyMobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(1%); }
+}
+
+@keyframes driftCloudsMobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-1%); }
+}
+
+@keyframes driftSeaMobile {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(2px); }
+}
+
+/* Small Mobile (Max 480px) */
+@media (max-width: 480px) {
+    .atril {
+        height: 22%;
+        bottom: 0;
+    }
+    
+    .dulce {
+        height: 25%;
+        bottom: 0;
+    }
+
+    .loader-title {
+        font-size: 0.9rem;
+    }
+    
+    .loader-status {
+        font-size: 0.7rem;
+    }
+}
