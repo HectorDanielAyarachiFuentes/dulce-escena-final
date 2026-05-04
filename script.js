@@ -38,13 +38,106 @@ imagesToLoad.forEach(src => {
     img.src = src;
 });
 
-// ====== MÚSICA ======
+// ====== MÚSICA Y ANALIZADOR ======
 const musica = document.getElementById('musica');
+const clouds = document.querySelector('.clouds');
+const sky = document.querySelector('.sky');
+
+let audioCtx;
+let analyser;
+let dataArray;
+let source;
+
 const startMusic = () => {
+    if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioCtx.createAnalyser();
+        source = audioCtx.createMediaElementSource(musica);
+        source.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+        
+        animate();
+    }
+
     musica.play().catch(e => console.log("Esperando interacción para música..."));
     document.removeEventListener('click', startMusic);
     document.removeEventListener('touchstart', startMusic);
 };
+
+// Variables para suavizado (lerp)
+let currentPulse = 1;
+let currentBrightness = 1;
+let currentSkyPulse = 1;
+let currentSkyBrightness = 1;
+let currentSkySaturate = 1;
+const smoothing = 0.05; 
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    if (analyser) {
+        analyser.getByteFrequencyData(dataArray);
+        
+        // --- CLOUDS REACTIVITY (Piano/Mids) ---
+        let midSum = 0;
+        let midCount = 0;
+        for (let i = 10; i < 60; i++) {
+            midSum += dataArray[i];
+            midCount++;
+        }
+        const midAverage = midSum / midCount;
+        const midIntensity = Math.min(1, (midAverage / 140) * 1.5);
+        
+        const targetScale = 1 + (midIntensity * 0.10); 
+        const targetBrightness = 1 + (midIntensity * 0.7);
+        
+        // --- SKY REACTIVITY (Bass/Lows) ---
+        let lowSum = 0;
+        let lowCount = 0;
+        for (let i = 0; i < 15; i++) {
+            lowSum += dataArray[i];
+            lowCount++;
+        }
+        const lowAverage = lowSum / lowCount;
+        const lowIntensity = Math.min(1, (lowAverage / 160));
+        
+        const targetSkyScale = 1 + (lowIntensity * 0.05);
+        const targetSkyBrightness = 1 + (lowIntensity * 0.3);
+        const targetSkySaturate = 1 + (lowIntensity * 0.5);
+
+        // --- SMOOTHING & APPLICATION ---
+        const ultraSmoothing = 0.02; 
+        
+        // Clouds smoothing
+        currentPulse += (targetScale - currentPulse) * ultraSmoothing;
+        currentBrightness += (targetBrightness - currentBrightness) * ultraSmoothing;
+        
+        // Sky smoothing (even slower for a "heavy" feel)
+        const skySmoothing = 0.015;
+        currentSkyPulse += (targetSkyScale - currentSkyPulse) * skySmoothing;
+        currentSkyBrightness += (targetSkyBrightness - currentSkyBrightness) * skySmoothing;
+        currentSkySaturate += (targetSkySaturate - currentSkySaturate) * skySmoothing;
+
+        if (clouds) {
+            clouds.style.setProperty('--pulse', currentPulse);
+            clouds.style.setProperty('--brightness', currentBrightness);
+        }
+
+        if (sky) {
+            sky.style.setProperty('--sky-pulse', currentSkyPulse);
+            sky.style.setProperty('--sky-brightness', currentSkyBrightness);
+            sky.style.setProperty('--sky-saturate', currentSkySaturate);
+        }
+    }
+}
+
+// Para no romper la animación CSS existente, necesitamos capturar su progreso
+// o simplemente añadir el pulso encima. 
+// Una mejor forma es usar variables CSS.
 
 document.addEventListener('click', startMusic);
 document.addEventListener('touchstart', startMusic);

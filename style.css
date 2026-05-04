@@ -99,17 +99,25 @@ body {
     background-image: url('img/back-1-cielo.webp');
     background-size: cover;
     background-position: center;
-    width: 110%;
-    left: -5%;
-    will-change: transform;
-    animation: driftSky 60s ease-in-out infinite;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    will-change: translate, scale, filter;
+    animation: driftSky 120s ease-in-out infinite;
     image-rendering: pixelated;
+    
+    /* Standalone properties for better blending */
+    scale: var(--sky-pulse, 1);
+    filter: brightness(var(--sky-brightness, 1)) saturate(var(--sky-saturate, 1));
 }
 
 @keyframes driftSky {
-    0%   { transform: translateX(0%); }
-    50%  { transform: translateX(2%); }
-    100% { transform: translateX(0%); }
+    0%   { translate: 0% 0%; }
+    25%  { translate: 1% 0.5%; }
+    50%  { translate: 2% 0%; }
+    75%  { translate: 1% -0.5%; }
+    100% { translate: 0% 0%; }
 }
 
 /* NUBES: Capa intermedia con movimiento independiente */
@@ -120,15 +128,18 @@ body {
     background-position: center;
     width: 130%;
     left: -15%;
-    will-change: transform;
-    animation: driftClouds 45s ease-in-out infinite;
+    will-change: transform, filter;
+    animation: driftClouds 75s ease-in-out infinite;
     image-rendering: pixelated;
+    /* Usamos propiedades separadas para evitar conflictos con la animación */
+    transform: scale(var(--pulse, 1));
+    filter: brightness(var(--brightness, 1));
 }
 
 @keyframes driftClouds {
-    0%   { transform: translateX(0%); }
-    50%  { transform: translateX(8%); }
-    100% { transform: translateX(0%); }
+    0%   { translate: 0% 0; }
+    50%  { translate: 8% 0; }
+    100% { translate: 0% 0; }
 }
 
 /* MAR: sobredimensionado + transform para drift suave como olas */
@@ -140,7 +151,7 @@ body {
     width: 140%;
     left: -20%;
     will-change: transform;
-    animation: driftSea 18s ease-in-out infinite;
+    animation: driftSea 35s ease-in-out infinite;
     image-rendering: pixelated;
 }
 
