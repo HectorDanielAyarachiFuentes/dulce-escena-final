@@ -71,6 +71,7 @@ const startMusic = () => {
 // Variables para suavizado (lerp)
 let currentPulse = 1;
 let currentBrightness = 1;
+let currentCloudSaturate = 1;
 let currentSkyPulse = 1;
 let currentSkyBrightness = 1;
 let currentSkySaturate = 1;
@@ -94,6 +95,7 @@ function animate() {
         
         const targetScale = 1 + (midIntensity * 0.10); 
         const targetBrightness = 1 + (midIntensity * 0.7);
+        const targetCloudSaturate = 1 + (midIntensity * 0.4);
         
         // --- SKY REACTIVITY (Bass/Lows) ---
         let lowSum = 0;
@@ -115,6 +117,7 @@ function animate() {
         // Clouds smoothing
         currentPulse += (targetScale - currentPulse) * ultraSmoothing;
         currentBrightness += (targetBrightness - currentBrightness) * ultraSmoothing;
+        currentCloudSaturate += (targetCloudSaturate - currentCloudSaturate) * ultraSmoothing;
         
         // Sky smoothing (even slower for a "heavy" feel)
         const skySmoothing = 0.015;
@@ -125,6 +128,7 @@ function animate() {
         if (clouds) {
             clouds.style.setProperty('--pulse', currentPulse);
             clouds.style.setProperty('--brightness', currentBrightness);
+            clouds.style.setProperty('--cloud-saturate', currentCloudSaturate);
         }
 
         if (sky) {
