@@ -164,16 +164,6 @@ body {
     bottom: -0.1%; 
     height: 32.9%;
     transform: translateX(-50%);
-    
-    /* Efecto de viento y respiración */
-    filter: url(#windFilter);
-    animation: breathing 4s ease-in-out infinite;
-    transform-origin: bottom center;
-}
-
-@keyframes breathing {
-    0%, 100% { transform: translateX(-50%) scale(1) skewX(0deg); }
-    50% { transform: translateX(-50%) scale(1.02) skewX(1.1deg); }
 }
 
 /* EFECTOS RETRO Y TEXTURA */
