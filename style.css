@@ -71,3 +71,16 @@ body {
     background-image: url('img/front.png');
     background-position: center bottom;
 }
+
+/* PERRO: centrado en la playa, encima de todas las capas */
+.perro {
+    position: absolute;
+    z-index: 3;
+    bottom: -0.9%;
+    left: 40%;
+    transform: translateX(-50%);
+    height: 35%;
+    width: auto;
+    object-fit: contain;
+    pointer-events: none;
+}
