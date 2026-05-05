@@ -196,6 +196,122 @@ body {
     transform: translateX(-50%);
 }
 
+/* ANIMATED ELEMENTS */
+.element {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+/* Sailboats */
+.sailboat-wrapper {
+    position: absolute;
+    z-index: 2;
+    bottom: 42%; /* Moved further back towards the horizon */
+}
+
+.sailboat {
+    background-image: url('assets/svg/sailboat.svg');
+    width: 25px;
+    height: 25px;
+    opacity: 0.6;
+}
+
+.sailboat-1 {
+    left: 15%;
+    bottom: 41%;
+    animation: sailboatFloat 50s ease-in-out infinite;
+}
+.sailboat-1 .sailboat {
+    animation: sway 4s ease-in-out infinite;
+}
+
+.sailboat-2 {
+    left: 75%;
+    bottom: 43%;
+    animation: sailboatFloat 60s ease-in-out infinite reverse;
+}
+.sailboat-2 .sailboat {
+    width: 18px;
+    height: 18px;
+    opacity: 0.4;
+    animation: sway 5s ease-in-out infinite 1s;
+}
+
+.sailboat-3 {
+    left: 85%;
+    bottom: 40.5%;
+    animation: sailboatFloat 55s ease-in-out infinite 2s;
+}
+.sailboat-3 .sailboat {
+    width: 15px;
+    height: 15px;
+    opacity: 0.3;
+    animation: sway 6s ease-in-out infinite;
+}
+
+.sailboat-4 {
+    left: 30%;
+    bottom: 42%;
+    animation: sailboatFloat 45s ease-in-out infinite reverse 5s;
+}
+.sailboat-4 .sailboat {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    animation: sway 4.5s ease-in-out infinite 2s;
+}
+
+/* Seagulls */
+.seagull-wrapper {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 2;
+}
+
+.seagull {
+    background-image: url('assets/svg/seagull.svg');
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+}
+
+.seagull-1 { animation: flyAcross 20s linear infinite; top: 15%; }
+.seagull-1 .seagull { animation: flap 0.5s ease-in-out infinite; }
+
+.seagull-2 { animation: flyAcross 25s linear infinite 5s; top: 25%; }
+.seagull-2 .seagull { animation: flap 0.6s ease-in-out infinite; }
+
+.seagull-3 { animation: flyAcross 18s linear infinite 10s; top: 10%; }
+.seagull-3 .seagull { animation: flap 0.4s ease-in-out infinite; }
+
+/* ANIMATIONS */
+@keyframes flap {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.5); }
+}
+
+@keyframes sailboatFloat {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(40px) translateY(3px); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+}
+
+@keyframes flyAcross {
+    0% { left: -5%; transform: scaleX(1); }
+    49% { transform: scaleX(1); }
+    50% { left: 105%; transform: scaleX(-1); }
+    99% { transform: scaleX(-1); }
+    100% { left: -5%; transform: scaleX(1); }
+}
+
 /* EFECTOS RETRO Y TEXTURA */
 .noise-overlay {
     position: absolute;
