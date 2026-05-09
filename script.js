@@ -64,9 +64,38 @@ const startMusic = () => {
     }
 
     musica.play().catch(e => console.log("Esperando interacción para música..."));
+    updateMusicButton();
     document.removeEventListener('click', startMusic);
     document.removeEventListener('touchstart', startMusic);
 };
+
+// ====== CONTROL DE MÚSICA ======
+const musicControl = document.getElementById('musicControl');
+const playIcon = musicControl.querySelector('.play-icon');
+const pauseIcon = musicControl.querySelector('.pause-icon');
+
+function updateMusicButton() {
+    if (musica.paused) {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.remove('visible');
+    } else {
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.add('visible');
+    }
+}
+
+musicControl.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (musica.paused) {
+        musica.play().catch(e => console.log("Error al reproducir"));
+    } else {
+        musica.pause();
+    }
+    updateMusicButton();
+});
+
+// Actualizar botón cuando la música termina
+musica.addEventListener('ended', updateMusicButton);
 
 // Variables para suavizado (lerp)
 let currentPulse = 1;
