@@ -78,9 +78,11 @@ function updateMusicButton() {
     if (musica.paused) {
         playIcon.classList.remove('hidden');
         pauseIcon.classList.remove('visible');
+        musicControl.classList.remove('playing');
     } else {
         playIcon.classList.add('hidden');
         pauseIcon.classList.add('visible');
+        musicControl.classList.add('playing');
     }
 }
 

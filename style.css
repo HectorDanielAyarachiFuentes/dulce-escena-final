@@ -87,63 +87,86 @@ body {
     position: fixed;
     bottom: 40px;
     right: 40px;
-    width: 70px;
-    height: 70px;
+    width: 65px;
+    height: 65px;
     border-radius: 50%;
-    border: 2.5px solid rgba(255, 255, 255, 0.4);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     cursor: pointer;
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
     color: #ffffff;
-    font-weight: bold;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-        0 0 30px rgba(255, 255, 255, 0.3),
-        0 10px 40px rgba(0, 0, 0, 0.2),
-        inset 0 1px 2px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+        0 8px 32px 0 rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+    outline: none;
+    overflow: visible;
 }
 
 .music-control-btn::before {
     content: '';
     position: absolute;
-    inset: -2px;
+    inset: 0;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.1), transparent);
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.music-control-btn::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: rotate-border 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
     pointer-events: none;
 }
 
+.music-control-btn.playing::after {
+    opacity: 1;
+}
+
+@keyframes rotate-border {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .music-control-btn:hover {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
+    transform: translateY(-5px) scale(1.05);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
     border-color: rgba(255, 255, 255, 0.6);
     box-shadow: 
-        0 0 50px rgba(255, 255, 255, 0.5),
-        0 15px 50px rgba(0, 0, 0, 0.3),
-        inset 0 1px 2px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.15);
-    transform: scale(1.15) translateY(-5px);
+        0 15px 40px 0 rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.music-control-btn:hover::before {
+    opacity: 1;
 }
 
 .music-control-btn:active {
-    transform: scale(0.92) translateY(0);
-    box-shadow: 
-        0 0 20px rgba(255, 255, 255, 0.3),
-        0 5px 20px rgba(0, 0, 0, 0.2),
-        inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.3);
 }
 
-.play-icon,
-.pause-icon {
+.music-control-btn svg {
+    width: 28px;
+    height: 28px;
     position: absolute;
-    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    z-index: 2;
 }
 
 .play-icon {
@@ -153,18 +176,28 @@ body {
 
 .play-icon.hidden {
     opacity: 0;
-    transform: scale(0.3) rotate(-90deg);
+    transform: scale(0.4) rotate(90deg);
     pointer-events: none;
 }
 
 .pause-icon {
     opacity: 0;
-    transform: scale(0.3) rotate(90deg);
+    transform: scale(0.4) rotate(-90deg);
 }
 
 .pause-icon.visible {
     opacity: 1;
     transform: scale(1) rotate(0deg);
+}
+
+/* Pulsing rings when playing */
+.music-control-btn.playing {
+    animation: gentle-pulse 3s infinite alternate ease-in-out;
+}
+
+@keyframes gentle-pulse {
+    0% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 0 15px rgba(255, 255, 255, 0.1); }
+    100% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.4); }
 }
 
 .layer {
